@@ -200,3 +200,83 @@ So when a model finished training, we just need the Features
 
 ## Exercise - Use Machine Learning models ##
 
+We are gonna take a model which is already trained.
+Because as said before, once the model is trained oncem we just want to load the model and use it
+So the plan is to create the model, save it, load it, use it to make predictions
+
+``` python
+
+import pandas
+!pip install statsmodels
+!wget https://raw.githubusercontent.com/MicrosoftDocs/mslearn-introduction-to-machine-learning/main/graphing.py
+!wget https://raw.githubusercontent.com/MicrosoftDocs/mslearn-introduction-to-machine-learning/main/Data/doggy-boot-harness.csv
+
+# Load a file containing dog's boot and harness sizes
+data = pandas.read_csv('doggy-boot-harness.csv')
+
+```
+
+As before, we'll train the model, still using the statsmodels.formula.api, and the Ols formula, Ordinary Least Squares.
+
+``` python
+
+model = smf.ols(formula = "boot_size ~ harness_size", data = data).fit()
+
+```
+
+Then we'll use a library called joblib, which is lightweight pipelining in python
+
+``` python
+
+import joblib
+
+model_filename = './avalanche_dog_boot_model.pkl'
+joblib.dump(model, model_filename)
+
+```
+
+Then we just have to load it, also with joblib to handle the pipelining.
+
+``` python
+
+model_loaded = joblib.load(model_filename)
+
+```
+
+Now we just need to create a function to calculate the bootsize
+
+``` python
+
+def load_predict(harness_size)
+    model = joblib.load(model_filename)
+    inputs = {"harness_size" : [harness_size]}
+    predicted = loaded_model.predict(inputs)[0]
+    return predicted
+
+prediction = load_predict(45)
+print("prediction :", prediction)
+
+```
+
+Now that we have a model which is trained, we need to put it in our webstore to warn users about wrong sized boots
+For this we'll make a function which take in parameters the harness size, the boot size, and display an error message if this is far off the prediction
+
+``` python
+
+def check_size(harness_size, boot_size)
+    estimated_boot_size = int(round(load_predict(harness_size)))
+    if estimated_boot_size == boot_size
+        return f"ok"
+    if selected_boot_size < estimated_boot_size:
+        # Selected boots might be too small
+        return "The boots you have selected might be TOO SMALL for a dog as "\
+               f"big as yours. We recommend a doggy boots size of {estimated_boot_size}."
+
+    if selected_boot_size > estimated_boot_size:
+        # Selected boots might be too big
+        return "The boots you have selected might be TOO BIG for a dog as "\
+               f"small as yours. We recommend a doggy boots size of {estimated_boot_size}."
+
+check_size(55, 39)
+
+```
