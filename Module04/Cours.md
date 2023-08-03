@@ -57,4 +57,91 @@ We can create 4 kinds of compute :
 
 ## What is Azure Automated ML ##
 
+It includes an automated ML capabolity. It tries multiple pre processing techniques and model-training algorithms in parallel.
+It can allow us to train models even without extensive DS knowledge.
+
+We can setup operations aka Jobs with multiple settings before starting ML.
+
+## Understand the AutoML process ##
+
+The steps are the following :
+- Prepare data: Identify features and label. pre process, clean and transform the data.
+- Train model : split the data into two groups, a training and validation set. Train it then validate it.
+- Evaluate performance : compare how close the model's predictions are
+- Deploy a predictive service : After you train a ML model, you can deploy it
+
+We can use the automated ML for :
+
+- Classification = Predicting categories or classes
+- Regression = Predicting numeric values
+- Time series forecasting = Predicting numeric values at a future point in time
+
+### Evaluate Performance ###
+
+The best model is identified based on the evaluation metric you specified, Normalized root mean squared error.
+
+A technique called cross-validation is used to calculate the evaluation metric. After the model is trained using a portion of the data, the remaining portion is used to iteratively test, or cross-validate, the trained model. The metric is calculated by comparing the predicted value from the test with the actual known value, or label.
+
+The difference between the predicted and actual value, known as the residuals, indicates the amount of error in the model. The performance metric root mean squared error (RMSE), is calculated by squaring the errors across all of the test cases, finding the mean of these squares, and then taking the square root. What all of this means is that smaller this value is, the more accurate the model's predictions. The normalized root mean squared error (NRMSE) standardizes the RMSE metric so it can be used for comparison between models which have variables on different scales.
+
+The Residual Histogram shows the frequency of residual value ranges. Residuals represent variance between predicted and true values that can't be explained by the model, in other words, errors. You should hope to see the most frequently occurring residual values clustered around zero. You want small errors with fewer errors at the extreme ends of the scale.
+
+### Exercise - Explore Automated ML in Azure ML ### 
+
+Dataset : A CSV file with 732 lines and 13 columns about bike rental agency predictions on rentals
+
+Results : With Max Abs Scaler and Light GBM 
+
+Explained variance = Explained variance is a statistical measure that quantifies the proportion of the total variance in a dataset that is explained by a statistical model. It is used to measure the discrepancy between a model and actual data, which is the part of the model's total variance that is explained by factors that are actually present and isn't due to error variance.
+
+0.83255
+
+Mean absolute error = Mean Absolute Error (MAE) is a metric used to evaluate the performance of a regression model. It is the average of all absolute errors in a collection of predictions, without taking their direction into account. MAE is a linear score, meaning all individual differences contribute equally to the mean.
+
+181.05
+
+Mean absolute percentage error = Mean Absolute Percentage Error (MAPE) is a metric used to measure the accuracy of a forecasting method. It represents the average of the absolute percentage errors of each entry in a dataset, showing how accurate the forecasted quantities were in comparison with the actual quantities.
+
+50.661
+
+Median absolute error = In statistics, the median absolute deviation (MAD) is a robust measure of the variability of a univariate sample of quantitative data.
+
+112.90
+
+Normalized mean absolute error = measure of errors between paired observations expressing the same phenomenon.
+
+0.053126
+
+Normalized median absolute error =
+
+0.033129
+
+Normalized root mean squared error = root-mean-square error (RMSE) is a frequently used measure of the differences between values (sample or population values) predicted by a model or an estimator and the values observed. 
+
+0.080489
+
+Normalized root mean squared log error
+
+0.065856
+
+R2 score = Coefficient of determination, indicator for how well data points fit a line or curve
+
+0.83075
+
+Root mean squared error
+
+274.31
+
+Root mean squared log error
+
+0.46337
+
+Spearman correlation = The Spearman correlation between two variables is equal to the Pearson correlation between the rank values of those two variables; while Pearson's correlation assesses linear relationships, Spearman's correlation assesses monotonic relationships (whether linear or not). If there are no repeated data values, a perfect Spearman correlation of +1 or −1 occurs when each of the variables is a perfect monotone function of the other.
+
+0.92297
+
+When we explore the processed data, we can see the most important features for predicting the label is the workingday, the temperature and year.
+We can also visualize the python file generated for the model training, which is put in here.
+
+
 
